@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  task-manager:
+    build: ./bun-server
+    ports:
+      - "8080:8080"
+
