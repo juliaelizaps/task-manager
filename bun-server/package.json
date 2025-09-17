@@ -4,13 +4,19 @@
   "type": "module",
   "private": true,
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.5.1",
+    "@types/pg": "^8.15.5"
   },
   "peerDependencies": {
-    "typescript": "^5"
+    "typescript": "^5.9.2"
   },
   "dependencies": {
     "express": "^5.1.0",
     "pg": "^8.16.3"
+  },
+  "scripts": {
+    "start": "bun --watch run index.ts"
   }
 }
