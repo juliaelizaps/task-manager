@@ -2,7 +2,13 @@ version: '3.8'
 
 services:
   task-manager:
-    build: ./bun-server
+    build:
+      context: ./bun-server          
+      dockerfile: Dockerfile         
     ports:
       - "3000:3000"
+    volumes:
+      - ./bun-server:/app
+      - /app/node_modules
+    command: ["bun", "index.ts"]
 
