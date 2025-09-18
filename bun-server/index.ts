@@ -47,8 +47,21 @@ app.post("/api/task", (request:Request, response:Response)=>{
 
 
 // GET ALL /api/task
+// Use: /api/task?status= or /api/task?priority=
 app.get("/api/task", (request:Request, response:Response )=>{
-    response.json(taskArray);
+
+    const {status,priority} = request.query;
+    const filteredTask = taskArray.filter(task => {
+
+        const optionOne = status && task.status !== status;
+        const optionTwo = priority && task.priority !==priority;
+
+        if (optionOne || optionTwo){
+            return false;
+        }
+    });
+
+    response.json(filteredTask);
 });
 
 
