@@ -1,11 +1,12 @@
 
 import express from "express";
+import {json} from "express";
 import type {Request, Response } from "express"
 
 
 const app = express();
-const port = 8080;
-app.use(express.json());
+const port = 3000;
+app.use(json());
 
 type Task = {
     id: number;
@@ -18,16 +19,18 @@ type Task = {
     updated_at: string;
 };
 
-let tasks : Task[] =[];
+let taskArray : Task[] =[];
 
-// POST/api/tasks http://localhost:8080/api/tasks
+// http://localhost:3000/api/task
 
-app.post("/api/tasks", (request:Request, response:Response)=>{
+
+// POST /api/task 
+app.post("/api/task", (request:Request, response:Response)=>{
     
     const date = new Date().toISOString();
 
     const task: Task = {
-        id: tasks.length + 1, 
+        id: taskArray.length + 1, 
         title:request.body.title, 
         description:request.body.description|| "", 
         status: request.body.status|| "pending",
@@ -37,19 +40,46 @@ app.post("/api/tasks", (request:Request, response:Response)=>{
         updated_at: date
     };
 
-    tasks.push(task);
+    taskArray.push(task);
     response.json(task);
-
-    console.log(tasks);
 });
 
-// GET/api/tasks
-app.get("/api/tasks", (request:Request, response:Response )=>{
-    response.json(tasks);
+
+// GET ALL /api/task
+app.get("/api/task", (request:Request, response:Response )=>{
+    response.json(taskArray);
 });
+
+
+// GET /api/task/:id
+app.get("/api/task/:id", (request:Request, response:Response )=>{
+    const id = Number(request.params.id);
+    const task = taskArray.find((task): task is Task => task.id === id);
+
+    if(!task){
+        return response.status(404).json({error:"Task not found"});
+    }
+    response.json(task);
+});
+
+
+// DELETE /api/task/:id
+app.delete("/api/task/:id", (request:Request, response:Response )=>{
+    const id = Number(request.params.id);
+    const task = taskArray.find(task => task.id === id);
+
+    if(!task){
+       return response.status(404).json({error:"Task not found"});
+    }
+
+    taskArray = taskArray.filter(task => task.id !== id);
+    response.json({message:`Task ${id} deleted`});
+});
+
+
 
 app.get("/", (request:Request, response:Response)=>{
-    response.json({ message: "Hi"});
+    response.json({ message: "Hi, It's working :)"});
 });
 
 app.listen(port, "0.0.0.0", ()=>{
