@@ -11,8 +11,12 @@ export const pool = new Pool({
 
 //runs migration
 pool.on('connect', async () => {
-    const fs = await import('fs');
-    const sql = fs.readFileSync('./db/migration.sql', 'utf8');
-    await pool.query(sql);
-    console.log(' Database tables created!');
-  });
+    try {
+        const fs = await import('fs');
+        const sql = fs.readFileSync('./db/migration.sql', 'utf8');
+        await pool.query(sql);
+        console.log('Database tables created!');
+    } catch (error) {
+        console.log(error);
+    }
+});
