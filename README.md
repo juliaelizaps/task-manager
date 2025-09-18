@@ -11,7 +11,7 @@ A simple REST API for managing tasks built with Bun, Express, and PostgreSQL.
 - DELETE /api/task/:id - Delete task
 
 ## Task Schema
-
+```bash
 {
   "id": "number",
   "title": "string",
@@ -22,14 +22,19 @@ A simple REST API for managing tasks built with Bun, Express, and PostgreSQL.
   "created_at": "string",
   "updated_at": "string"
 }
-
+```
 ## Running the Application
 
 1. Clone the repository and start the services:
+```bash
    git clone https://github.com/juliaelizaps/task-manager.git
+```
+```bash
    cd task-manager
+```
+```bash
    docker-compose up --build
-
+```
 2. The API will be available at http://localhost:3000
 
 The application runs in Docker with PostgreSQL database. All dependencies and configuration are handled automatically.
@@ -77,8 +82,9 @@ The database schema is automatically created when the application starts.
 To connect to the PostgreSQL database:
 
    # Connecting using Docker Compose (PSQL)
+   ```bash
    docker compose exec db psql -U postgre -d taskdb
-
+   ```
 Password: postgre
 
 ## Testing Endpoints on Postman real exemples:
