@@ -10,7 +10,7 @@ export const pool = new Pool({
 });
 
 //runs migration
-pool.on('connect', async () => {
+(async () => {
     try {
         const fs = await import('fs');
         const sql = fs.readFileSync('./db/migration.sql', 'utf8');
@@ -19,4 +19,4 @@ pool.on('connect', async () => {
     } catch (error) {
         console.log(error);
     }
-});
+})();
