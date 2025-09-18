@@ -83,7 +83,9 @@ Password: postgre
 
 ## Testing Endpoints on Postman real exemples:
 
-POST http://localhost:3000/api/task
+
+- POST http://localhost:3000/api/task
+```bash
 body
 {
   "title": "test tasks",
@@ -92,13 +94,16 @@ body
   "priority": "medium",
   "due_date": null
 }
+```
+- GET http://localhost:3000/api/task?status=pending
+- GET http://localhost:3000/api/task/2
+- DELETE http://localhost:3000/api/task/1
+- PUT http://localhost:3000/api/task/2
 
-GET http://localhost:3000/api/task?status=pending
-GET http://localhost:3000/api/task/2
-DELETE http://localhost:3000/api/task/1
-PUT http://localhost:3000/api/task/2
+```bash
 body
 {
   "title": "New title",
   "priority": "high"
 }
+```
