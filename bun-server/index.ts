@@ -59,6 +59,7 @@ app.get("/api/task", (request:Request, response:Response )=>{
         if (optionOne || optionTwo){
             return false;
         }
+        return true;
     });
 
     response.json(filteredTask);
@@ -89,6 +90,27 @@ app.delete("/api/task/:id", (request:Request, response:Response )=>{
     taskArray = taskArray.filter(task => task.id !== id);
     response.json({message:`Task ${id} deleted`});
 });
+
+// PUT /api/task/:id
+app.put("/api/task/:id", (request: Request, response: Response) => {
+    const id = Number(request.params.id);
+    const task = taskArray.find(task => task.id === id);
+
+    if (!task) {
+        return response.status(404).json({ error: "Task not found" });
+    }
+
+    task.title = request.body.title ?? task.title;
+    task.description = request.body.description ?? task.description;
+    task.status = request.body.status ?? task.status;
+    task.priority = request.body.priority ?? task.priority;
+    task.due_date = request.body.due_date ?? task.due_date;
+    task.updated_at = new Date().toISOString();
+
+    response.json(task);
+});
+
+
 
 
 
