@@ -2,11 +2,12 @@
 import express from "express";
 import {json} from "express";
 import type {Request, Response } from "express"
-
+import helmet from "helmet";
 
 const app = express();
 const port = 3000;
 app.use(json());
+app.use(helmet());
 
 type Task = {
     id: number;
